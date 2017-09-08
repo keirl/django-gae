@@ -2,6 +2,28 @@ runtime: python27
 api_version: 1
 threadsafe: true
 
+  
+# [START handlers]
 handlers:
+- url: /static
+  static_dir: static
+
+- url: /account/.*
+  script: accounts.app
+  login: required
+  secure: always
+  
+- url: /(.*\.(gif|png|jpg))$
+  static_files: static/\1
+  upload: static/.*\.(gif|png|jpg)$
+
 - url: /.*
   script: main.app
+  secure: always
+# [END handlers]
+  
+
+
+
+
+#https://cloud.google.com/appengine/docs/standard/python/config/apprefs
